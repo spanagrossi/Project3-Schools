@@ -1,0 +1,76 @@
+---
+title: "project3"
+output: html_document
+---
+
+
+```{r, include=FALSE}
+library(usethis)
+library(tidyverse)
+library(tidymodels)
+library(Lahman)
+library(ggplot2)
+View(Schools)
+View(CollegePlaying)
+```
+
+
+country plot
+```{r pressure, echo=FALSE}
+statecount= Schools %>% 
+  mutate(state_lump = fct_lump(state, n = 10)) %>% 
+  ggplot(aes(x = fct_infreq(state_lump))) + 
+  geom_bar() + 
+  labs(x = "State", y = "Count", Title= "") + 
+  coord_flip()
+  
+statecount
+```
+
+```{r}
+schoolCount = CollegePlaying %>% 
+  group_by(schoolID) %>%
+  summarize(players = length(schoolID)) %>% 
+  left_join(Schools, by = "schoolID") %>% 
+  arrange(desc(players))
+  
+ggplot(data= schoolCount, aes(x=fct_infreq(state)))+
+  geom_bar()+
+  coord_flip()+
+  theme(axis.text.y = element_text(size = 5))+
+  labs(x= "State", y="", title="Players in Each State")
+        
+schoolCount
+```
+
+```{r}
+CollegePlaying %>% 
+  left_join(Schools, by = "schoolID") %>% 
+  group_by(yearID) %>% 
+  summarize(players = length(schoolID)) %>% 
+  ggplot(aes(x=yearID, y=players))+
+  geom_col(fill="darkblue")+
+  labs(title= "Players in Each Year", subtitle= "From 1864 to 2014", x= "Amount of Players", y="Year")
+  theme_minimal()
+  
+```
+
+```{r}
+join_schools= CollegePlaying %>% 
+  left_join(Schools, by = "schoolID")
+join_schools %>% 
+  group_by(name_full) %>% 
+  summarize(players = length(schoolID)) %>% 
+  arrange(desc(players))
+  
+```
+
+```{r}
+library(usmap)
+library(ggplot2)
+
+plot_usmap(data = schoolCount, values = "players", color = "red")+
+    scale_fill_continuous(name = "Players", label = scales::comma) + 
+  theme(legend.position = "right")+
+  labs(title= "Number of Players in Each State")
+```
