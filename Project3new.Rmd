@@ -2,7 +2,6 @@
 title: "Tips to Make it into the MLB"
 author: "Sophie Panagrossi and Natalie Susco"
 output: html_document
-code_folding: hide
 ---
 
 
@@ -22,15 +21,15 @@ View(CollegePlaying)
 Every child dreams at one point or another about becoming a professional athlete. However, the likelihood of that dream turning into a reality is rare. The job of a professional athlete is not acquired overnight children start to play the sports when they are young and continue through school. The best way into MLB is through college sports experience. College baseball spawns many MLB players each year. To discover what schools produce professional baseball players, there are a few questions that have to be answered first about these professional athletes' early careers and how they came to be.
 
 1) What states produce the most MLB players?
-2) Are more MLB players going to Universities than before?
-3) Where did the highest-paid athletes go to college?
+2) Are more MLB players coming from playing at Universities than before?
+3) Where did the highest-paid athletes play during their college career?
 
-The data we will use is part of the Lahman-package. This database contains pitching, hitting, and fielding statistics for Major League Baseball from 1871 through 2018. It includes data from the two current leagues (American and National), the four other "major" leagues (American Association, Union Association, Players League, and Federal League), and the National Association of 1871-1875. We will be reviewing and remodeling the schools, Collegeplaying, and Salaries datasets to help answer the questions above. The Schools' dataset lists the college/universities' full name and the state it is located in as well as its schoolID. The schoolID is what helps to join the school data to the Collegeplaying data. This way we can view the full name of the school as well as what state it is located in. Collegeplaying also tells you in what year the player attended the school. The salaries dataset tells you the playerID as well as their salary and year they were playing. 
+The data we will use is part of the Lahman-package. This database contains pitching, hitting, and fielding statistics for Major League Baseball from 1871 through 2018. It includes data from the two current leagues (American and National), the four other "major" leagues (American Association, Union Association, Players League, and Federal League), and the National Association of 1871-1875. We will be reviewing and remodeling the schools, Collegeplaying, and Salaries datasets to help answer the questions above. The Schools' dataset lists the college/universities' full name and the state it is located in as well as its schoolID. The schoolID is what helps to join the school data to the Collegeplaying data. This way we can view the full name of the school as well as what state it is located in for each MLB player. Collegeplaying also tells you in what year the player attended the school. The salaries dataset tells you the playerID as well as their professional salary and the year they were playing. 
 
 
 ## What States Produce the Most MLB Players?
 
-There is a multitude of factors that affect one's potential to be drafted for the MLB. The geographical location of where they are currently playing baseball plays a role in their ability to be noticed by major leagues. The graph below counts the number of players per state. 
+There is a multitude of factors that affect one's potential to be drafted for the MLB. The geographical location of where they are currently playing baseball plays a role in their ability to be noticed by major leagues. The graph below counts the number of professional players per state. The CollegePlaying data is joined to the Schools data than grouped by school ID, summarized by player count and lumped by state.
 
 ```{r pla, echo=FALSE}
 schoolCount = CollegePlaying %>% 
@@ -46,7 +45,7 @@ ggplot(data= schoolCount, aes(x=fct_infreq(state)))+
   labs(x= "State", y="Number of Players", title="Players in Each State")
 ```
 
-However, a fact to keep in mind is that there may be more schools in certain states. The graph below displays the number of schools per state.
+However, a fact to keep in mind is that there may be more schools in certain states. The graph below displays the number of schools per state. 
 
 ```{r pressure, echo=FALSE}
 statecount= Schools %>% 
@@ -59,10 +58,10 @@ statecount= Schools %>%
 statecount
 ```
 
-The graphs look almost identical with a few states switching around in order but Texas and California remain the top two for number of universities/colleges and number of players. This is interesting to consider when you think of the likelihood of becoming a professional baseball player. Less than one student per school across the country will become a professional baseball player. However if one would be more likely to be recognized in California than Wyoming.  
+The graphs look almost identical with a few states switching around in order but Texas and California remain the top two for number of universities/colleges and number of players. This is interesting to consider when you think of the likelihood of becoming a professional baseball player. Less than one student per school across the country will become a professional baseball player. However one would be more likely to be recognized by the MLB playing at a school in California than Wyoming.  
 
 
-*The graph below is another visual representation of the number of players per state. This maps it out by each state, the location of where the player is practicing baseball can have a big impact on whether or not they get drafted for the MLB. The graphs above and below show that if you want to be the best you have to move to play with the best in order to get noticed.*
+*The graph below is another visual representation of the number of players per state. This maps it out by each state. The location of where the player is practicing baseball can have a big impact on whether or not they get drafted for the MLB. The graphs above and below show that if you want to be the best you have to play with the best in order to get noticed.*
 
 
 ```{r state, echo=FALSE}
@@ -78,9 +77,9 @@ plot_usmap(data = graphmapp, values = "n")+
   labs(title= "Number of Players in Each State")
 ```
 
-## Are more MLB players Coming from Universities than before?
+## Are more MLB players Coming from Playing at Universities than before?
 
-Over the years the MLB draft has reinforced that teams are prioritizing drafting college players at a higher level than ever before. This reinforcement can lead to more students going on to seek higher education. 
+Over the years the MLB draft has reinforced that teams are prioritizing drafting college players at a higher level than ever before. This reinforcement can lead to more students going on to seek higher education. The data below is grouped by year and summarized by the number of players per each year.
 ```{r min, echo=FALSE}
 CollegePlaying %>% 
   left_join(Schools, by = "schoolID") %>% 
@@ -94,8 +93,8 @@ CollegePlaying %>%
 The graph above displays that as time continues more MLB players have played for a college/university. This means that an increasing number of professional athletes were likely "discovered" by the MLB during their college career. If more teams are looking to draft college students that could mean that more young adults go off to colleges. If someone wanted to be drafted into the MLB their best bet would be through a University as the draft continues to prioritize college players.
 
 
-## What Schools Have the Most Players?
-Below is a table of the top ten schools that have had the most players on their teams.
+## What Schools Produce the Most Players?
+Below is a table of the top ten schools that have had the most professional players play on their teams. The data is group by college name and summarized by the number of players.
 
 ```{r sfc, echo=FALSE}
 join_schools= CollegePlaying %>% 
@@ -108,10 +107,12 @@ join_schools %>%
  top_n(10, wt = players) 
 
 ```
-I am not surprised that Texas and California are at the top. Something surprising is Arizona State University because Arizona was in the middle of the early graphs when a number of players were broken down by state. This table displays that while the graphical location is important in the potential for professional athletes the school that they choose to play at is maybe even more influential. 
+*important to note the table counted the total number of players per school so some players may be counted more than once*
 
-## Where did the highest-paid athletes go to college?
+I am not surprised that schools in Texas and California are at the top. Something surprising is Arizona State University because Arizona was in the middle of the early graphs when the number of professional players were broken down by state. This table displays that while the graphical location is important in the potential for professional athletes the school that they choose to play at is maybe even more influential in their ability to be drafted by the MLB. 
 
+## Where Did the Highest-Paid Athletes Play During their College Career?
+Below is a table of the top nine schools that have players who go on to have the highest salaries for professional baseball players.The CollegePlaying, Schools, and Salaries data are all joined together then grouped by school name and summarized by average salary for that school. Chose to only display the top ten schools to discover exactly what schools produce the highest paying baseball players.
 
 ```{r mon, echo=FALSE}
 schoollls= CollegePlaying %>% 
@@ -132,13 +133,13 @@ highpayy = highpayy %>%
 
 highpayy
 ```
-While all the salaries are pretty substantial with the lowest one being above $100,000 there is a large variation in pay between players depending on what school they played at before being drafted. What is interesting is regardless of the player if they are coming from the same school they receive the same pay. The top-paying universities are not the universities that have the most players. This is a prime example of quality over quantity.
+While all the salaries are pretty substantial with the lowest one being above $100,000 there is a large variation in pay between players depending on what school they played at before being drafted. What is interesting is regardless of the player if they are coming from the same school in the same year they receive the same pay. The top-paying universities are not the universities that have the most players. This is a prime example of quality over quantity.
 
 ## Predicting What MLB salary will be based on their school, state, and year.
 
-We will split our dataset into training and testing sets. We will train the model on the training set, and then test the model by generating predictions on the testing set. (unhid for code)
+We will split our dataset into training and testing sets. We will train the model on the training set, and then test the model by generating predictions on the testing set. First we have to convert the name of the college to a factor because decision trees do not like using character variables.
 
-```{r, warning = FALSE, message = FALSE}
+```{r}
 highpay = highpay %>%
   mutate(name_full = factor(name_full))
 
@@ -157,25 +158,29 @@ highpay_tree =
   fit(salary ~ name_full + yearID.x + state,
       data = highpay_train)
 
-highpay_tree
 
 highpay_pred = highpay_tree %>%
   predict(new_data = highpay_test) 
 
 highpay_pred
 ```
+The table above lists projected salaries based off of the year the athlete is playing at the school, the school itself (school name), and the state the school is located in.
 
+
+Evaluating the predictions
 ```{r}
 highpay_test %>%
   mutate(salary_pred = highpay_pred$.pred) %>%
   rmse(truth = salary, estimate = salary_pred)
 ```
 
-The RMSE, or root mean square error, indicates the absolute fit of the model to the data. It shows how close the observed data points are to the model’s predicted values. Our RMSE is 2777828, which is pretty high, so it doesn't accurately predict the response. 
+The RMSE, or root mean square error, indicates the absolute fit of the model to the data. It shows how close the observed data points are to the model’s predicted values. Our RMSE is 2777828, which is pretty high, so it doesn't accurately predict the response. This could be becuase that there are many other facotrs that affect the players salary than just what school and location they played at prior to playing professionally. 
 
 ## What did we learn?
 
-Becoming a major league baseball player is hard and a long process. If you are truly dedicated to discipline and proper future planning, it is possible.
+Becoming a major league baseball player is a difficult and long process. If you are truly dedicated to discipline and proper future planning, it is possible. MLB players do not wake up one day and decide to go pro they practice and play continuously throughout their life. In order to prepare to be play for the MLB, experience is key and the proper exposure is needed. What this means is players should thoroughly consider what college/university they decide to play for. The location of the school is also an important factor that can affect their ability to be drafted into the MLB. The likelihood of becoming a professional baseball player is slim. However, genuine determination and use of higher education to gain a degree and exposure shows a clear link to help players become recognized by the public to hopfully be drafted by the MLB. 
+
+
 
 
 
