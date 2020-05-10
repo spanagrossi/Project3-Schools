@@ -52,7 +52,7 @@ statecount= Schools %>%
   mutate(state_lump = fct_lump(state, n = 50)) %>% 
   ggplot(aes(x = fct_infreq(state_lump))) + 
   geom_bar() + 
-  labs(x = "State", y = "Count", Title= "") + 
+  labs(x = "State", y = "Count", Title= "Schools Per State") + 
   coord_flip()
   
 statecount
