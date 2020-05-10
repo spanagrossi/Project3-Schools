@@ -374,7 +374,7 @@ summary {
 <li>Are more MLB players coming from playing at Universities than before?</li>
 <li>Where did the highest-paid athletes play during their college career?</li>
 </ol>
-<p>The data we will use is part of the Lahman-package. This database contains pitching, hitting, and fielding statistics for Major League Baseball from 1871 through 2018. It includes data from the two current leagues (American and National), the four other “major” leagues (American Association, Union Association, Players League, and Federal League), and the National Association of 1871-1875. We will be reviewing and remodeling the schools, Collegeplaying, and Salaries datasets to help answer the questions above. The Schools’ dataset lists the college/universities’ full name and the state it is located in as well as its schoolID. The schoolID is what helps to join the school data to the Collegeplaying data. This way we can view the full name of the school as well as what state it is located in. Collegeplaying also tells you in what year the player attended the school. The salaries dataset tells you the playerID as well as their salary and the year they were playing.</p>
+<p>The data we will use is part of the Lahman-package. This database contains pitching, hitting, and fielding statistics for Major League Baseball from 1871 through 2018. It includes data from the two current leagues (American and National), the four other “major” leagues (American Association, Union Association, Players League, and Federal League), and the National Association of 1871-1875. We will be reviewing and remodeling the schools, Collegeplaying, and Salaries datasets to help answer the questions above. The Schools’ dataset lists the college/universities’ full name and the state it is located in as well as its schoolID. The schoolID is what helps to join the school data to the Collegeplaying data. This way we can view the full name of the school as well as what state it is located in for each MLB player. Collegeplaying also tells you in what year the player attended the school. The salaries dataset tells you the playerID as well as their professional salary and the year they were playing.</p>
 <div id="what-states-produce-the-most-mlb-players" class="section level2">
 <h2>What States Produce the Most MLB Players?</h2>
 <p>There is a multitude of factors that affect one’s potential to be drafted for the MLB. The geographical location of where they are currently playing baseball plays a role in their ability to be noticed by major leagues. The graph below counts the number of professional players per state. The CollegePlaying data is joined to the Schools data than grouped by school ID, summarized by player count and lumped by state.</p>
@@ -406,12 +406,12 @@ summary {
 ##  8 University of California, Berkeley        162
 ##  9 University of Arizona                     161
 ## 10 University of Alabama                     155</code></pre>
-<p><em>important to note the table counted the tally of players per school so some players may be counted more than once</em></p>
+<p><em>important to note the table counted the total number of players per school so some players may be counted more than once</em></p>
 <p>I am not surprised that schools in Texas and California are at the top. Something surprising is Arizona State University because Arizona was in the middle of the early graphs when the number of professional players were broken down by state. This table displays that while the graphical location is important in the potential for professional athletes the school that they choose to play at is maybe even more influential in their ability to be drafted by the MLB.</p>
 </div>
 <div id="where-did-the-highest-paid-athletes-play-during-their-college-career" class="section level2">
 <h2>Where Did the Highest-Paid Athletes Play During their College Career?</h2>
-<p>Below is a table of the top nine schools that have players who go on to have the highest salaries for professional baseball players.The CollegePlaying, Schools, and Salaries data are all joined together then grouped by school name and summarized by average salary for that school. Choose to only display the top ten schools to discover what these schools are and where they are located.</p>
+<p>Below is a table of the top nine schools that have players who go on to have the highest salaries for professional baseball players.The CollegePlaying, Schools, and Salaries data are all joined together then grouped by school name and summarized by average salary for that school. Chose to only display the top ten schools to discover exactly what schools produce the highest paying baseball players.</p>
 <pre><code>## # A tibble: 9 x 2
 ##   name_full                               ave_sall
 ##   &lt;chr&gt;                                      &lt;dbl&gt;
@@ -424,7 +424,7 @@ summary {
 ## 7 California State University Long Beach 23428571 
 ## 8 Georgia Institute of Technology        23020833.
 ## 9 University of Washington               22250000</code></pre>
-<p>While all the salaries are pretty substantial with the lowest one being above $100,000 there is a large variation in pay between players depending on what school they played at before being drafted. What is interesting is regardless of the player if they are coming from the same school they receive the same pay. The top-paying universities are not the universities that have the most players. This is a prime example of quality over quantity.</p>
+<p>While all the salaries are pretty substantial with the lowest one being above $100,000 there is a large variation in pay between players depending on what school they played at before being drafted. What is interesting is regardless of the player if they are coming from the same school in the same year they receive the same pay. The top-paying universities are not the universities that have the most players. This is a prime example of quality over quantity.</p>
 </div>
 <div id="predicting-what-mlb-salary-will-be-based-on-their-school-state-and-year." class="section level2">
 <h2>Predicting What MLB salary will be based on their school, state, and year.</h2>
