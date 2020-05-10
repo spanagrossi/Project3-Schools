@@ -80,6 +80,7 @@ plot_usmap(data = graphmapp, values = "n")+
 ## Are more MLB players Coming from Playing at Universities than before?
 
 Over the years the MLB draft has reinforced that teams are prioritizing drafting college players at a higher level than ever before. This reinforcement can lead to more students going on to seek higher education. The data below is grouped by year and summarized by the number of players per each year.
+
 ```{r min, echo=FALSE}
 CollegePlaying %>% 
   left_join(Schools, by = "schoolID") %>% 
